@@ -27,13 +27,9 @@ if (isset($_POST['create'])) {
 
 $conn->close();
 
-
-
-
-
 if (isset($_POST['read'])) {
     $sql = "SELECT * FROM users";
-    $result = $connection->query($sql);
+    $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
@@ -45,4 +41,18 @@ if (isset($_POST['read'])) {
 }
 
 $conn->close();
-?>
+
+if (isset($_POST['update'])) {
+    $id = $_POST['id'];
+    $newFirstName = $_POST['newFirstName'];
+    $newSurname = $_POST['newSurname'];
+
+    $sql = "UPDATE users SET name='$newFirstName', email='$newSurname' WHERE id=$id";
+
+    if ($conn->query($sql) === true) {
+        echo "Successfully updated.";
+    } else {
+        echo "Having issues with updating" . $conn->error;
+    }
+}
+$conn->close();
