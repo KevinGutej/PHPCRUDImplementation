@@ -56,3 +56,18 @@ if (isset($_POST['update'])) {
     }
 }
 $conn->close();
+
+if (isset($_POST['delete'])) {
+    $id = $_POST['id'];
+    $email = $_POST['email'];
+
+    $sql = "DELETE FROM users WHERE id=$id AND email=$email";
+
+    if ($conn->query($sql) === true) {
+        echo "Successfully deleted";
+    } else {
+        echo "Error with deleting " . $conn->error;
+    }
+}
+
+$conn->close();
